@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function onSendFeedback(){
+           console.log(`Email: ${document.getElementById('emailinp').value}`);
+           console.log(`Date of visit: ${document.getElementById('dateinp').value}`);
+           console.log(`Your comments: ${document.getElementById('textareainp').value}`);
+        }
+    </script>
+    <style>
+        .maindiv{
+          border: 1px solid black;
+          padding: 10px;
+          background: #f5f59d;
+          width: 50%;
+        }
+        .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+         text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+       }
+       .form-control{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+    </style>
+</head>
+<body>
+    <div class="maindiv">
+    <form >
+        <label for="emailinp">Your Email *:</label>
+        <input class="form-control" type="email" id="emailinp"/>
+        <br>
+        <label for="dateinp">Date of visit *:</label>
+        <input class="form-control" type="date" id="dateinp"/>
+        <br>
+        <label for="textareainp">Your Comments</label>
+        <br>
+        <textarea class="form-control" id="textareainp" name="w3review" rows="4" cols="50">       
+        </textarea>
+        <br>
+        <button class="button" onclick="onSendFeedback()" id="feedbackbtn">
+            Send your Feedback
+        </button>
+    </form>
+</div>
+</body>
+</html>
