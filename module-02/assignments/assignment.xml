@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<?xml-stylesheet type="text/css" href="style.css"?>
+<!DOCTYPE menuInfo 
+[
+  <!ELEMENT menuInfo (title,summary,effectiveDate,menu+)>
+  <!ELEMENT title (#PCDATA)>
+  <!ELEMENT summary (#PCDATA)>
+  <!ELEMENT effectiveDate (#PCDATA)>
+  <!ELEMENT menu (category,menuItem+)>
+  <!ELEMENT category (#PCDATA)>
+  <!ELEMENT menuItem (itemName,description,price,indicator*)>
+  <!ELEMENT description (#PCDATA)>
+  <!ELEMENT price (#PCDATA)>
+  <!ELEMENT indicator (#PCDATA)>
+  <!ELEMENT itemName (originalName,oldName?)>
+  <!ELEMENT originalName (#PCDATA)>
+  <!ELEMENT oldName (#PCDATA)>
+]
+>
 <menuInfo>
   <title>Chester's Breakfast Menu</title>
   <summary>
@@ -8,7 +26,7 @@
     up just the way you like them!!
     ]]>
   </summary>
-  <effective Date>03/12/2016</effective Date>
+  <effectiveDate>03/12/2016</effectiveDate>
   <menu>
     <category>Traditional Favorites</category>
     <menuItem>
@@ -24,11 +42,11 @@
         and Smoked Sausage Patties, Turkey Sausage Patties or Thick-Sliced Bacon.
         ]]>
       </description>
-      <price>7.95</price>
+      <price>$7.95</price>
     </menuItem>
     <menuItem>
       <itemName>
-        <originalName> Fresh Mornin' Sampler </originalname>
+        <originalName> Fresh Mornin' Sampler </originalName>
         <oldName> Mornin' Sampler </oldName>
       </itemName>
       <description>
@@ -38,17 +56,18 @@
         or an Apple Bran Muffin.
         ]]>
       </description>
-      <price>6.95</price>
+      <price>$6.95</price>
       <indicator>&#9829;</indicator>  <!-- heart healthy -->
       <indicator>&#9830;</indicator>  <!-- low-sodium -->
       <indicator>&#9824;</indicator>  <!-- vegan -->  
     </menuItem>
   </menu>
+   &#xD;
   <menu>
     <category>Lite and Quick</category>
     <menuItem>
       <itemName>
-        <name> Oatmeal Breakfast </originalName>
+        <originalName> Oatmeal Breakfast </originalName>
       </itemName>
       <description>
         <![CDATA[
@@ -58,7 +77,7 @@
         all day.
         ]]>
       </description>
-      <price>6.95</price>
+      <price>$6.95</price>
       <indicator>&#9829;</indicator>  <!-- heart healthy -->
       <indicator>&#9830;</indicator>  <!-- low-sodium -->
       <indicator>&#9824;</indicator>  <!-- vegan -->  
@@ -75,8 +94,12 @@
         Sausage Patties or Thick-Sliced Bacon.
         ]]>
       </description>
-      <price>12.95</price>
+      <price>$12.95</price>
       <indicator>&#9832;</indicator>  <!-- Low-carb -->
     </menuItem>
   </menu>
 </menuInfo>
+<!-- 
+Name : Gurlal Singh
+Student Id: N01552472
+-->

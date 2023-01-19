@@ -1,0 +1,23 @@
+menuInfo{
+    padding: 20px;
+}
+title{
+    font-size: 40px;
+    color: rgb(68, 221, 68);
+}
+
+category{
+    font-size: 30px;
+}
+
+
+category::after,::before{
+
+    content: "\A";
+    white-space: pre;
+}
+
+originalName{
+    font-size: 20px;
+
+}
