@@ -23,8 +23,8 @@
 
           const listItem = document.createElement(`li`);
 
-          const title = document.createElement(`h2`);
-          title.appendChild(
+          const fullname = document.createElement(`h2`);
+          fullname.appendChild(
             document.createTextNode(
               student.getElementsByTagName("firstname")[0].childNodes[0]
                 .nodeValue +
@@ -33,18 +33,8 @@
                   .nodeValue
             )
           );
-          listItem.appendChild(title);
+          listItem.appendChild(fullname);
 
-          const subtitle = document.createElement(`p`);
-          subtitle.appendChild(
-            document.createTextNode(
-              student.getAttribute(`rollno`) +
-                ` - ` +
-                student.getElementsByTagName("nickname")[0].childNodes[0]
-                  .nodeValue
-            )
-          );
-          listItem.appendChild(subtitle);
 
           const grade = document.createElement(`p`);
           grade.appendChild(
@@ -54,6 +44,27 @@
             )
           );
           listItem.appendChild(grade);
+
+
+          const rollno = document.createElement(`p`);
+          rollno.appendChild(
+            document.createTextNode(
+              `Roll no: ` +
+                student.attributes.rollno.value
+            )
+          );
+          listItem.appendChild(rollno);
+
+
+          const nickname = document.createElement(`p`);
+          nickname.appendChild(
+            document.createTextNode(
+               'Nickname: '
+                 +    student.getElementsByTagName("nickname")[0].childNodes[0]
+                  .nodeValue
+            )
+          );
+          listItem.appendChild(nickname);
 
           listElement.appendChild(listItem);
         }
