@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Assignment Module-5</title>
+    <style>
+      th {
+        background-color: rgba(147, 168, 53, 0.601);
+      }
+      td {
+        color: rgb(30, 88, 164);
+      }
+    </style>
+  </head>
+  <body>
+    <table id="Customer_Info" border="1">
+      <tr>
+        <th>Customer Id</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Order</th>
+        <th>Items</th>
+      </tr>
+    </table>
+    <script>
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          displayData(this.responseXML);
+        }
+      };
+      xhttp.open("GET", "customers.xml", true);
+      xhttp.send();
+
+      function stringToNode(html) {
+        const template = document.createElement(`template`);
+        html = html.trim();
+        template.innerHTML = html;
+        return template.content.firstChild;
+      }
+
+      function create_cust_info(customer) {
+        const content = `
+        <tr>
+        <td>${customer.id}</td>
+        <td>${customer.title} ${customer.name}</td>
+        <td>${customer.address}</td>
+        <td>${customer.phone}</td>
+        <td>${customer.email}</td>
+        <td>
+          <table>
+            <tr>
+              <td>OrderID: ${customer.orderID}</td>
+            </tr>
+            <tr>
+              <td>OrderBy: ${customer.orderBy}</td>
+            </tr>
+            <tr>
+              <td>OrderDate: ${customer.orderDate}</td>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table>
+            <tr>
+              <td>Item price: ${customer.itemPrice}</td>
+           </tr>
+           <tr>
+              <td>Item quantity: ${customer.itemQty}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+        `;
+
+        return stringToNode(content);
+      }
+
+      function parseInfo(element) {
+        const id = element.attributes[0].nodeValue;
+        const title =
+          element.getElementsByTagName("name")[0].attributes[0].nodeValue;
+        const name =
+          element.getElementsByTagName(`name`)[0].childNodes[0].nodeValue;
+        const address =
+          element.getElementsByTagName(`address`)[0].childNodes[0].nodeValue;
+        const phone =
+          element.getElementsByTagName(`phone`)[0].childNodes[0].nodeValue;
+
+        if (!element.getElementsByTagName(`email`)[0]) {
+          var email = "No email found.";
+        } else {
+          var email =
+            element.getElementsByTagName(`email`)[0].childNodes[0].nodeValue;
+        }
+
+        const orderID =
+          element.getElementsByTagName(`order`)[0].attributes[0].nodeValue;
+        const orderBy =
+          element.getElementsByTagName(`order`)[0].attributes[1].nodeValue;
+        const orderDate =
+          element.getElementsByTagName(`orderDate`)[0].childNodes[0].nodeValue;
+        const itemPrice =
+          element.getElementsByTagName(`itemPrice`)[0].childNodes[0].nodeValue;
+        const itemQty =
+          element.getElementsByTagName(`itemQty`)[0].childNodes[0].nodeValue;
+
+        return {
+          id,
+          title,
+          name,
+          address,
+          phone,
+          email,
+          orderID,
+          orderBy,
+          orderDate,
+          itemPrice,
+          itemQty,
+        };
+      }
+
+      function displayData(xml) {
+        const customer_data = xml.getElementsByTagName(`customer`);
+        const list = document.getElementById(`Customer_Info`);
+
+        for (let index = 0; index < customer_data.length; index++) {
+          const customer_element = customer_data[index];
+          const customer_parsed = parseInfo(customer_element);
+
+          const customer_element_info = create_cust_info(customer_parsed);
+          list.appendChild(customer_element_info);
+        }
+      }
+    </script>
+  </body>
+</html>
