@@ -1,0 +1,1 @@
+- The purpose of this project was to display data from an XML file in an HTML format. The goal was to create an intuitive user interface that would allow users to easily view and interact with the data for that i have created the Html file by from xml file by using JavaScript. 

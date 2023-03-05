@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="stores">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="store" type="storeType" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="storeType">
+    <xs:sequence>
+       <xs:element name="address" type="addressType" minOccurs="0" />
+        <xs:element name="employees" type="employeesType" minOccurs="0" />
+        <xs:element name="products" type="productsType" minOccurs="0" />
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string"/>
+  </xs:complexType>			
+  <xs:complexType name="addressType">
+    <xs:sequence>
+       <xs:element name="street" type="xs:string"/>
+      <xs:element name="city" type="xs:string"/>
+       <xs:element name="region" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="country" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>		
+  <xs:complexType name="employeesType">
+    <xs:sequence>
+       <xs:element name="employee" type="employeeType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>	 
+  <xs:complexType name="employeeType">
+    <xs:sequence>
+      <xs:element name="empid" type="xs:string"/>
+      <xs:element name="firstName" type="xs:string"/>
+      <xs:element name="lastName" type="xs:string"/>
+      <xs:element name="position" type="xs:string"/>
+      <xs:element name="empType" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>	 
+  <xs:complexType name="productsType">
+    <xs:sequence>
+       <xs:element name="product" type="productType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>	 
+  <xs:complexType name="productType">
+    <xs:sequence>
+      <xs:element name="productid" type="xs:string"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="qty" type="xs:positiveInteger"/>
+      <xs:element name="usdPrice" type="xs:string"/>
+      <xs:element name="euroPrice" type="xs:string"/>
+        <xs:element name="poundPrice" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>	 
+</xs:schema>

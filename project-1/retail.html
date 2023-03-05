@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Assignment Module-5</title>
+    <style>
+		table {
+		  border-collapse: collapse;
+		}
+		th, td {
+		  text-align: center;
+		  padding: 6px;
+		  border: 2px solid #adc0ed;
+		}
+		th {
+		  background-color: #adc0ed;
+		  color: black;
+		}
+		tr:nth-child(odd) {
+		  background-color: #f2f2f2;
+		}
+	  </style>
+  </head>
+  <body>
+    <table id="store_Info" >
+      <tr>
+        <th>Store Id</th>
+        <th>Street</th>
+		<th>Region</th>
+		<th>City</th>
+		<th>Country</th>
+		<th>Employees</th>
+		<th>Products</th>
+      </tr>
+    </table>
+    <script>
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          displayData(this.responseXML);
+        }
+      };
+      xhttp.open("GET", "retail.xml", true);
+      xhttp.send();
+
+      function stringToNode(html) {
+        const template = document.createElement(`template`);
+        html = html.trim();
+        template.innerHTML = html;
+        return template.content.firstChild;
+      }
+
+      function create_store_info(store) {
+
+		let empData = ``;
+		for(let emp of store.employees){
+            empData += `<tr>
+                     <td>${emp.id}</td>
+                      <td>${emp.firstName}</td>
+                      <td>${emp.lastName}</td>
+                      <td>${emp.position}</td>
+                      <td>${emp.empType}</td>
+                    </tr>`;
+		}
+
+        let empTable = `<table border="1">
+                  <tr> 
+                    <th>Id</th> 
+                    <th>FirstName</th>
+                    <th>LastName</th> 
+                    <th>Position</th>
+                    <th>Type</th>
+
+                  </tr>                 
+                    ${empData}
+             </table>`;
+
+			let prodData =``;
+			for (let product of store.products){
+				prodData +=`   <tr>
+                     <td>${product.id}</td>
+                      <td>${product.name}</td>
+                      <td>${product.qty}</td>
+                      <td>${product.usdPrice}</td>
+                      <td>${product.euroPrice}</td>
+                       <td>${product.poundPrice}</td>
+                    </tr>`;
+			}
+
+
+			let productTable = ` <table>
+                  <tr> 
+                    <th>Id</th> 
+                    <th>Name</th>
+                    <th>Quantity</th> 
+                    <th>USD Price</th>
+                    <th>EURO Price</th>
+                     <th>POUND Price</th>
+
+                  </tr>  
+				  ${prodData}               
+            </table>`;
+
+        const content = `
+        <tr>
+        <td>${store.id}</td>
+        <td>${store.street}</td>
+		<td>${store.region}</td>
+		<td>${store.city}</td>
+		<td>${store.country}</td>
+		<td>${empTable}</td>
+		<td>${productTable}</td>
+
+
+      </tr>
+        `;
+
+        return stringToNode(content);
+      }
+
+      function parseInfo(element) {
+        let employees = [];
+		let products = [];
+        const id = element.attributes[0].nodeValue;
+        const street =
+          element.getElementsByTagName(`street`)[0].childNodes[0].nodeValue;
+		  const region =
+          element.getElementsByTagName(`region`)[0] == undefined ? '' :   element.getElementsByTagName(`region`)[0].childNodes[0].nodeValue;
+		  const city =
+          element.getElementsByTagName(`city`)[0].childNodes[0].nodeValue;
+		  const country =
+          element.getElementsByTagName(`country`)[0].childNodes[0].nodeValue;
+
+		  const employeesList = element.getElementsByTagName(`employee`);
+
+		  for (let i = 0; i < employeesList.length; i++) {
+          const employee = employeesList[i];
+
+		  employees.push({
+		   id:	employee.getElementsByTagName(`empid`)[0].childNodes[0].nodeValue,
+		   firstName: employee.getElementsByTagName(`firstName`)[0].childNodes[0].nodeValue,
+		   lastName : employee.getElementsByTagName(`lastName`)[0].childNodes[0].nodeValue,
+		   position : employee.getElementsByTagName(`position`)[0].childNodes[0].nodeValue,
+		   empType: employee.getElementsByTagName(`empType`)[0].childNodes[0].nodeValue
+		  });
+
+        }
+
+		const productList = element.getElementsByTagName(`product`);
+
+		for (let i = 0; i < productList.length; i++) {
+          const product = productList[i];
+
+		  products.push({
+		   id:	product.getElementsByTagName(`productid`)[0].childNodes[0].nodeValue,
+		   name: product.getElementsByTagName(`name`)[0].childNodes[0].nodeValue,
+		   qty : product.getElementsByTagName(`qty`)[0].childNodes[0].nodeValue,
+		   usdPrice : product.getElementsByTagName(`usdPrice`)[0].childNodes[0].nodeValue,
+		   euroPrice: product.getElementsByTagName(`euroPrice`)[0].childNodes[0].nodeValue,
+		   poundPrice: product.getElementsByTagName(`poundPrice`)[0].childNodes[0].nodeValue
+		  });
+
+        }
+
+        return {
+          id,
+          street,
+		  region,
+		  city,
+		  country,
+		  employees,
+		  products
+        };
+      }
+
+      function displayData(xml) {
+        const store_data = xml.getElementsByTagName(`store`);
+        const list = document.getElementById(`store_Info`);
+
+        for (let index = 0; index < store_data.length; index++) {
+          const store_element = store_data[index];
+          const store_parsed = parseInfo(store_element);
+
+          const store_element_info = create_store_info(store_parsed);
+          list.appendChild(store_element_info);
+        }
+      }
+    </script>
+  </body>
+</html>
