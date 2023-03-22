@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="users"></ul>
+    <script>
+
+      function stringToNode(html) {
+        const template = document.createElement(`template`);
+        html = html.trim();
+        template.innerHTML = html;
+        return template.content.firstChild;
+      }
+
+      function createUser(user) {
+        const content = `<li>
+       <article>
+        <h2>${user.first_name} ${user.last_name}</h2>
+       </article>
+        </li>`;
+
+        return stringToNode(content);
+      }
+
+      function parseUser(xml) {
+        const id =
+          xml.getElementsByTagName(`id`)[0].childNodes[0].nodeValue;
+        const first_name =
+          xml.getElementsByTagName(`first_name`)[0].childNodes[0].nodeValue;
+        const last_name =
+          xml.getElementsByTagName(`last_name`)[0].childNodes[0].nodeValue;
+        const email =
+          xml.getElementsByTagName(`email`)[0].childNodes[0].nodeValue;
+          const gender =
+          xml.getElementsByTagName(`gender`)[0].childNodes[0].nodeValue;
+          const ip_address =
+          xml.getElementsByTagName(`ip_address`)[0].childNodes[0].nodeValue;
+
+        return {
+            id,
+            first_name,
+            last_name,
+            email,
+            gender,
+            ip_address
+        };
+      }
+
+      function displayData(xmlDoc) {
+        const userList = xmlDoc.getElementsByTagName(`user`);
+
+        const list = document.getElementById(`users`);
+
+        for (let index = 0; index < userList.length; index++) {
+            debugger;
+          const element = userList[index];
+          const parsedUser = parseUser(element);
+
+          const userElement = createUser(parsedUser);
+          list.appendChild(userElement);
+        }
+      }
+
+      const loadData = async()=>{
+        const xmlDoc = await fetch(`people.xml`,{method:`GET`}).then((response) => response.text())
+        .then((data)=> new DOMParser().parseFromString(data,`text/xml`));
+         displayData(xmlDoc);
+      }
+
+     loadData();
+    </script>
+</body>
+</html>
